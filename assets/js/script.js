@@ -5,6 +5,7 @@ var timerEl = document.querySelector("#time-el");
 var interval; 
 var time = 100; 
 var questionIndex = 0;
+var lastQuestionCorrect = '';
 
 var questions = [
   {
@@ -25,6 +26,11 @@ var questions = [
 function displayQuestion() {
     mainEl.innerHTML = --;
 
+    if (questionIndex >= questions.length) {
+        endGame();
+        return;
+    }
+
     var h1El = document.createElement('h1');
     h1El.textContent = questions[questionIndex].questionText;
     mainEl.appendChild(h1El);
@@ -32,20 +38,40 @@ function displayQuestion() {
     var btnDivEl = document.createElement("div");
     mainEl.appendChild(btnDivEl);
 
-    for (var i =0; i < questions[questionIndex].questionChoices.length; i++) {
+    var pEl = document.createElement('p');
+    pEl.textContent = lastQuestionCorrect;
+    mainEl.appendChild(pEl); 
+
+    btnDivEl.addEventListener("click", function (event) {
+        var target = event.target;
+
+        if (target.getAttribute("class") !== 'btn') return;
+
+        var clickedQuestionIndex = target.getAttribute("data-index");
+
+        console.log(clickedQuestionIndex);
+        if (clickedQuestionIndex === questions[questionIndex].correctAnswer) {
+
+            lastQuestionCorrect = "Correct"
+
+
+        } else {
+            time = time -10;
+            lastQuestionCorrect = "Incorrect"
+        }
+
+        questionIndex++;
+        displayQuestion();
+
+
+    });
+
+    for (var i = 0; i < questions[questionIndex].questionChoices.length; i++) {
         var buttonEl = document.createElement('button');
         buttonEl.textContent = questions[questionIndex].questionChoices[i];
-        btnDivEl.addEventListener("click", function(event) {
-            var target = event.target;
-            console.log(target.getAttribute("class"))
-        
-            if (target.getAttribute("class") !== 'btn') return;
-
-            console.log("continue");
-        
-        });
         buttonEl.setAttribute("class", "btn");
-        btnDivEl.appendChild(h1El);
+        buttonEl.setAttribute("data-index", i);
+        btnDivEl.appendChild(buttonEl);
     }
 };
 
@@ -77,5 +103,6 @@ btnDivEl.addEventListener("click", function(event) {
 });
 
 function endGame() {
+    clearInterval(interval);
 
 };
