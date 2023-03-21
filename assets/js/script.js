@@ -1,5 +1,5 @@
 var mainEl = document.querySelector("main");
-var startBtnEl = document.querySelector("start-btn");
+var startBtnEl = document.querySelector("#start-btn");
 var timerEl = document.querySelector("#time-el"); 
 
 var interval; 
@@ -9,22 +9,24 @@ var lastQuestionCorrect = '';
 
 var questions = [
   {
-    questionText: "Which is not a fruit?",
-    questionChoices: ["Strawberry", "Apple", "Lemon", "Broccoli"]
+    questionText: "Which of the following is not a fruit?",
+    questionChoices: ["Strawberry", "Apple", "Lemon", "Broccoli"],
     correctAnswer: 3
   },
   {
-    questionText: "What country did Pizza originate from?"
-    questionChoices: ["Italy", "United States of America", "Australia", "Bahamas"]
+    questionText: "What country did pizza originate from?",
+    questionChoices: ["Italy", "United States of America", "Australia", "Bahamas"],
     correctAnswer: 0
   },
   {
-    questionText: "What"
+    questionText: "Which food is the most healthy?",
+    questionChoices: ["Gummy Bears", "Maple Syrup", "Apples", "Popcorn"],
+    correctAnswer: 2
   }
 ];
 
 function displayQuestion() {
-    mainEl.innerHTML = --;
+    mainEl.innerHTML = "—"
 
     if (questionIndex >= questions.length) {
         endGame();
@@ -63,7 +65,6 @@ function displayQuestion() {
         questionIndex++;
         displayQuestion();
 
-
     });
 
     for (var i = 0; i < questions[questionIndex].questionChoices.length; i++) {
@@ -76,11 +77,13 @@ function displayQuestion() {
 };
 
 startBtnEl.addEventListener("click", function (event) {
-    main.innerHTML = --;
+    console.log('startquiz')
+ 
+    mainEl.innerHTML = "—" 
 
     interval = setInterval(function() {
         time--; 
-        timerEl.textContent = `Time: $(time)`;
+        timerEl.textContent = `Time: ${time}`;
 
         if (time <= 0) {
             clearInterval(interval);
