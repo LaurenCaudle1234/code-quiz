@@ -1,6 +1,7 @@
 var mainEl = document.querySelector("main");
 var startBtnEl = document.querySelector("#start-btn");
 var timerEl = document.querySelector("#time-el"); 
+var btnDivEl;
 
 var interval; 
 var time = 100; 
@@ -37,7 +38,7 @@ function displayQuestion() {
     h1El.textContent = questions[questionIndex].questionText;
     mainEl.appendChild(h1El);
 
-    var btnDivEl = document.createElement("div");
+    btnDivEl = document.createElement("div");
     mainEl.appendChild(btnDivEl);
 
     var pEl = document.createElement('p');
@@ -52,7 +53,7 @@ function displayQuestion() {
         var clickedQuestionIndex = target.getAttribute("data-index");
 
         console.log(clickedQuestionIndex);
-        if (clickedQuestionIndex === questions[questionIndex].correctAnswer) {
+        if (clickedQuestionIndex == questions[questionIndex].correctAnswer) {
 
             lastQuestionCorrect = "Correct"
 
@@ -96,14 +97,16 @@ startBtnEl.addEventListener("click", function (event) {
 
 });
 
-btnDivEl.addEventListener("click", function(event) {
-    var target = event.target;
-    console.log('hit')
+// btnDivEl.addEventListener("click", function(event) {
+    // var target = event.target;
+    // console.log('hit')
     // console.log(target.getAttribute("class"))
 
     // if ()
 
-});
+// });
+// startBtnEl.addEventListener("submit", function (event) {
+//     console.log('startquiz')
 
 function endGame() {
     clearInterval(interval);
